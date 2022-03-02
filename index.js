@@ -1,22 +1,20 @@
-//Hapi framework
-const Hapi = require('hapi');
-
-//Address and port
-const host = 'localhost';
-const port = 3000;
-
-//Create server
-const server = Hapi.Server({
-    host: host,
-    port: port
+document.getElementById('display');
+let buttons = Array.from(document.getElementsByClassName('button'));
+buttons.map( button => {
+    button.addEventListener('click', (e) => {
+        switch(e.target.innerText){
+            case 'C':
+                display.innerText = '';
+                break;
+            case '=':
+                try{
+                    display.innerText = eval(display.innerText);
+                } catch {
+                    display.innerText = "Error"
+                }
+                break;
+            default:
+                display.innerText += e.target.innerText;
+        }
+    });
 });
-
-//Start server
-const init = async () => {
-    await server.start();
-    console.log("Server up! Port: " + port);
-}
-
-require("./routes")(server);
-//Start App
-init();
